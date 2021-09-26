@@ -7,7 +7,6 @@ class TurnUserAdminController {
   constructor(private turnUserAdminUseCase: TurnUserAdminUseCase) {}
 
   handle(request: Request, response: Response): Response {
-    // Complete aqui
     try {
       const { user_id } = request.params;
       const user = this.turnUserAdminUseCase.execute({ user_id }) as User;
