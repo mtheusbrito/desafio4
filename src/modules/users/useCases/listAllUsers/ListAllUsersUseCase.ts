@@ -1,7 +1,9 @@
+import { response } from "express";
+
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
-interface IRequest {
+export interface IRequest {
   user_id: string;
 }
 
@@ -10,6 +12,14 @@ class ListAllUsersUseCase {
 
   execute({ user_id }: IRequest): User[] {
     // Complete aqui
+    const user = this.usersRepository.findById(user_id);
+    if (!user) {
+      throw Error("User not found!");
+    }
+    if (!user.admin) {
+      throw Error("This user not have permission!");
+    }
+    return this.usersRepository.list();
   }
 }
 
